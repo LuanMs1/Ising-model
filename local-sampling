@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stlib.h>
+#include<math.h>
+#include<time.h>
+#include "mtwister.h"
+#include "neighbour.h" // import the function to calculate the neighbour of a site
+
+ /**
+  
+  We first geneterate a square system of N sites and atribute, at random, 1 or -1
+  (that determine the sipin in the site), then we chose, at random again, a site
+  that will be flipped with a probability determined by min{1,exp[(Eb - Ea)/T]}, where 
+  Ea and Eb is the energys of the system before and after the flip, respectively.
+  
+  We repit this procedure an arbitrary L, number of times to each temperetaure where
+  L need to be a large number, and compute the mean magnetization to each temperature
+  to finaly plot MxT (M is the mean absolute magnetization).
+  
+  **\
+  
+int main()
+{
+
+ \\ BEGIN VARIABLES
+ 
+ int N,L,k;
+ int *sigma;
+ double *med_M, Temp;
+ double seed,r;
+ 
+ \\ END VARIABLES
+ 
+ seed = 10;
+ init_genrand64(seed);
+ 
+ L = 6;
+ N = L*L;
+ 
+ sigma = malloc(N*sizeof(int));  // matrix that represents the system
+ 
+ for (k=0;k<N;k++)
+ {
+ 
+    r=genrand64_real1();
+    if (r<0.5) sigma[k] = 1;
+    else sigma[k]=-1;
+    
+ }
+ 
+ tmin = 0, tmax = 4, tite= 50; // defining the interval of temperature (from tmin to tmax)
+                               // and the number of temperatures tite
+ dt = (tmax - tmin)/tite; // interval betwen temperatures
+ 
+ med_M = malloc(tite*sizeof(double)); // array to store the average of the absolute magnetization
+ Temp = malloc(tite*sizeof(double)); // array to store the temperatures
+ 
+ 
+ 
+  
